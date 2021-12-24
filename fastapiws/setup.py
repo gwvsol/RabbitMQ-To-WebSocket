@@ -5,7 +5,7 @@ from pkg_resources import parse_requirements
 from setuptools import find_packages, setup
 
 
-module_name = 'openapi'
+module_name = 'fastapiws'
 
 module = SourceFileLoader(
     module_name, os.path.join(module_name, '__init__.py')
