@@ -1,4 +1,4 @@
-## FastApiWS    
+## RabbitMQ-To-WebSocket    
 ---   
 
 Сервис для передачи данных из очереди RabbitMQ в Websocket    
@@ -16,3 +16,7 @@ make remove	 - Deleting services in Docker
 ```    
 
 Все необходимые настройки задаются в ```.env```
+
+Подписываемся на WebSocket с использованием [```websocat```](https://github.com/vi/websocat)   
+
+```websocat ws://192.168.10.14:9015/ws```
