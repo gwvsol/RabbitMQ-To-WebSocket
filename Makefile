@@ -29,13 +29,13 @@ endif
 .DEFAULT: help
 
 help:
-	@echo "make install	- Installing the project" 
+	@echo "make fastapiws	- Installing the project" 
 	@echo "make uninstall	- Deleting a project"
-	@echo "make build	- Building services in Docker using Docker Compose"
-	@echo "make start	- Running services in Docker using Docker Compose"
-	@echo "make stop	- Stopping services in Docker using Docker Compose"
-	@echo "make restart	- Restart services in Docker using Docker Compose"
-	@echo "make log	- Displaying service logs in Docker using Docker Compose"
+	@echo "make build	- Building services in Docker"
+	@echo "make start	- Running services in Docker"
+	@echo "make stop	- Stopping services in Docker"
+	@echo "make restart	- Restart services in Docker"
+	@echo "make log	- Displaying service logs in Docker"
 	@echo "make remove	- Deleting services in Docker"
 	@exit 0
 
