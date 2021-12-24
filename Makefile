@@ -61,13 +61,13 @@ uninstall:
 
 #=============================================
 # Создание релиза приложения
-release: clean clean-pyc ${OPENAPI} ${COMPOSE_FILE} ${MAKEFILE} \
+release: clean clean-pyc ${FASTAPIWS} ${COMPOSE_FILE} ${MAKEFILE} \
 				   		 ${ENVIRONMENT} ${README}
 	[ -d $(RELEASE) ] || mkdir ${RELEASE}
 	[ -d $(ARCHIVE) ] || mkdir ${ARCHIVE}
 	find "$(RELEASE)" -name '*.zip' -type f -exec mv -v -t "$(ARCHIVE)" {} +
-	zip -r ${RELEASE}/${BASIC_IMAGE}-$(shell date '+%Y-%m-%d-%H-%M-%S').zip \
-	${OPENAPI} ${COMPOSE_FILE} ${MAKEFILE} ${ENVIRONMENT} ${README}
+	zip -r ${RELEASE}/${FASTAPIWS}-$(shell date '+%Y-%m-%d-%H-%M-%S').zip \
+	${FASTAPIWS} ${COMPOSE_FILE} ${MAKEFILE} ${ENVIRONMENT} ${README}
 
 #=============================================
 # Очистка мусора
