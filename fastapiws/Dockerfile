@@ -17,6 +17,15 @@ ENV SHELL=/bin/bash
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
+ENV APPS=fastapiws
+ENV APPS_DIR=/usr/src
+ENV APPS_USER=fastapiws
+COPY release/${APPS}-*.zip /tmp/
+
+RUN groupadd --gid ${GROUP_ID} $APPS_USER \
+    && useradd --uid ${USER_ID} --gid $APPS_USER \
+       --shell $SHELL --create-home $APPS_USER
+
 RUN set -eux \
     && apt-get update \
     && apt-get upgrade -y \
@@ -35,3 +44,28 @@ RUN apt-get install -y build-essential git make unzip tzdata curl \
     && pip3 install setuptools wheel \
     && apt-get clean \
     && rm -rf /root/.cache/pip
+
+RUN set -eux \
+    && mkdir -p ${APPS_DIR} \
+    && mv /tmp/${APPS}-*.zip ${APPS_DIR} \
+    && cd ${APPS_DIR} \
+    && unzip ${APPS}-*.zip \
+    && rm *.zip \
+    && cd .. \
+    && chown -R ${APPS_USER}:${APPS_USER} ${APPS_DIR}
+
+USER ${APPS_USER}
+WORKDIR ${APPS_DIR}
+
+RUN make install-fastapiws \
+    && rm -rf /home/${APPS_USER}/.cache/pip
+
+HEALTHCHECK --interval=180s \
+            --timeout=1s \
+            --retries=3 \
+            --start-period=10s \
+            CMD curl --fail -X GET http://localhost:9015/ping || kill 1
+
+EXPOSE 9015
+
+ENTRYPOINT ["make", "run-fastapiws"]
