@@ -1,0 +1,33 @@
+version: "3.3"
+
+services:
+  fastapiws:
+    build:
+      context: .
+      dockerfile: ${FASTAPIWS}/${DOCKERFILE}
+      args:
+          TIMEZONE: ${TIMEZONE}
+          USER_ID: ${USER_ID}
+          GROUP_ID: ${USER_ID}
+    container_name: ${FASTAPIWS}
+    image: ${FASTAPIWS}:${RELEASE_IMAGE}
+    restart: always
+    ports:
+      - ${FASTAPIWS_PORT}:${FASTAPIWS_PORT}
+    # depends_on:
+      # - ${TIMESCALEDB}
+      # - ${RABBITDB}
+    volumes:
+      - ${ENVFILE}:/usr/src/.env
+    logging:
+      driver: journald
+    networks:
+      - fastapiws-net
+
+networks:
+  fastapiws-net:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: ${FASTAPIWSNET}
