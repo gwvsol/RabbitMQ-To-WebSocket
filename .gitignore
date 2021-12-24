@@ -2,3 +2,4 @@ venv
 archive
 __pycache__
 *.egg-info
+release
