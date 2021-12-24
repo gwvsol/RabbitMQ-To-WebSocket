@@ -86,8 +86,8 @@ clean-pyc:
 
 #=============================================
 # Работа с приложением OpenAPI
-ifneq ("$(wildcard $(PWD)/$(OPENAPI_MAKEFILE))","")
-    include ${OPENAPI_MAKEFILE}
+ifneq ("$(wildcard $(PWD)/$(FASTAPIWS_MAKEFILE))","")
+    include ${FASTAPIWS_MAKEFILE}
 endif
 
 #=============================================
