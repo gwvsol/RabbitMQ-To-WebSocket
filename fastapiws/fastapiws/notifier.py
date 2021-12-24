@@ -24,7 +24,7 @@ class Notifier:
         """ Добавление клиента WebSocket в очередь """
         await websocket.accept()
         self.connections.append(websocket)
-        await self.db.sendAllDataWebSocket(websocket)
+        # await self.db.sendAllDataWebSocket(websocket)
         if not self._is_ready:
             await self._iteration()
 
