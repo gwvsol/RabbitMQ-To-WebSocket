@@ -1,5 +1,5 @@
 import asyncio
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from starlette.websockets import WebSocket, WebSocketDisconnect
 from .notifier import Notifier
 from .log import logger as log
@@ -8,6 +8,12 @@ from .log import logger as log
 notifier = Notifier()
 app = FastAPI()
 
+@app.get("/ping")
+async def ping(request: Request):
+    """ Проверка работы сервиса """
+    host, port = request.client.host, request.client.port
+    log.info(f'=> {host}:{port} <= pong')
+    return "pong"
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
