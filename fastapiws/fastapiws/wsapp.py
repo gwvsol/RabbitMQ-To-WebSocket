@@ -8,12 +8,14 @@ from .log import logger as log
 notifier = Notifier()
 app = FastAPI()
 
+
 @app.get("/ping")
 async def ping(request: Request):
     """ Проверка работы сервиса """
     host, port = request.client.host, request.client.port
     log.info(f'=> {host}:{port} <= pong')
     return "pong"
+
 
 @app.websocket("/ws")
 async def websocket_endpoint(websocket: WebSocket):
